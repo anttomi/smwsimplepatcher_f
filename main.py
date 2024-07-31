@@ -1350,7 +1350,7 @@ class WThreadUpdateDatabase(QtCore.QThread):
                         # [7] SIZE
                         romSize = str(tds[7].text).strip()
                         # [8] DOWNLOADLINK, DOWNLOADS
-                        romDl = 'https:'+str(tds[8]).split('<a href="')[
+                        romDl = str(tds[8]).split('<a href="')[
                             1].split('">Download</a>')[0].strip()
                         romDownloads = str(tds[8]).split('class="secondary-info">')[
                             1].split(' downlo')[0].strip().replace(',', '')                        
@@ -1369,7 +1369,7 @@ class WThreadUpdateDatabase(QtCore.QThread):
                             'link': romDl,
                             'approved': 1
                         }
-                        # print(data)
+                        print(data['link'])
                         # INSERT IN TO DATABASE
                         self.dbSendUpdate(data)
                 except:
@@ -1761,7 +1761,7 @@ class WThreadDownloadAndPatchRom(QtCore.QThread):
                     fd.write(chunk)
             return True
         except:
-            print('Error. Could not downloade file:', url)
+            print('Error. Could not download file:', url)
             return False
 
     def patchRomFile(self, sourcefile, patchfile, targetfile):
